@@ -12,7 +12,7 @@ export default function App() {
         }}
       >
         <Button variant="contained">
-          <Link to="/history">Go to History</Link>
+          <Link to="/test-dna">Go to History</Link>
         </Button>
       </nav>
     </div>

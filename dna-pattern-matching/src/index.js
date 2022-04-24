@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import History from "./components/History";
+import TestDNA from "./components/TestDNA";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -11,7 +11,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="history" element={<History />} />
+        <Route path="test-dna" element={<TestDNA />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
