@@ -13,19 +13,17 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <AppBar position="static">
-      <Toolbar disableGutters>
+      <Toolbar>
         <nav>
           <Box sx={{ flexGrow: 1, display: "flex" }}>
             {urls.map((e) => (
-              <Link to={e}>
-                <Button
-                  key={e}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  onClick={() => navigate({ e })}
-                >
-                  {buttonMap.get(e)}
-                </Button>
-              </Link>
+              <Button
+                key={e}
+                onClick={() => navigate(e)}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {buttonMap.get(e)}
+              </Button>
             ))}
           </Box>
         </nav>
