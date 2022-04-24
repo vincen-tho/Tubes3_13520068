@@ -16,7 +16,18 @@ connection.connect((err) => {
         throw err;
         return;
     }
-    console.log('success');
+    console.log('DBMS connected');
   });
 
-app.listen(3000);
+// coba-coba get
+// app.get('/', (req,res)=>{
+//     console.log("masuk gan");
+// });
+
+// coba-coba post
+// app.post("/post", (req, res) => {
+//     console.log("Connected to React");
+//   });
+
+const PORT = 3000
+app.listen(PORT, console.log(`Server started on port ${PORT}`));
