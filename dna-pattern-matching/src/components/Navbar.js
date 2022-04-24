@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppBar, Box, Button, Typography, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 
 const Navbar = () => {
-  const urls = ["/", "/test-dna", "/history", "/input-penyakit"];
+  const urls = ["/", "/tes-dna", "/riwayat", "/tambahkan-penyakit"];
+  const pages = ["Beranda", "Tes DNA", "Riwayat", "Tambahkan Penyakit"];
   const buttonMap = new Map();
-  const pages = ["Home", "Test DNA", "History", "Input Penyakit"];
   urls.forEach((e, i = 0) => {
     buttonMap.set(e, pages[i]);
     i++;

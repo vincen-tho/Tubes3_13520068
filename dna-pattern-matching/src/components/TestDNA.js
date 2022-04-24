@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import DataTable from "./DataTable";
 import { TextField } from "@mui/material";
 
 const TestDNA = () => {
@@ -61,10 +60,6 @@ const TestDNA = () => {
             </Button>
           </div>
         </form>
-      </div>
-      <div className="w-3/5 mx-auto py-6">
-        <p className="text-2xl text-center">Hasil Tes</p>
-        <DataTable />
       </div>
     </div>
   );

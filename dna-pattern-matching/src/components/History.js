@@ -1,16 +1,11 @@
 import React from "react";
+import DataTable from "./DataTable";
 
 const History = () => {
   return (
-    <div>
-      <h1>History</h1>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea non quia
-        vero, id sunt adipisci rem, in suscipit voluptate doloribus quos nisi
-        facilis! Rem veniam quam, laboriosam perferendis quibusdam, aliquid
-        saepe facilis sint commodi inventore quaerat, ipsum officiis assumenda
-        harum doloremque. Cum possimus minus in nostrum sit velit iusto nemo.
-      </p>
+    <div className=" w-3/5 border border-indigo-600 rounded-lg mx-auto mt-16 p-6 ">
+      <p className="text-2xl font-bold text-center py-4">Hasil Tes</p>
+      <DataTable />
     </div>
   );
 };
