@@ -2,13 +2,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // components
+import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import History from "./components/History";
 import InputPenyakit from "./components/InputPenyakit";
 import TestDNA from "./components/TestDNA";
-
-// styling
-import AppBar from "@mui/material";
 
 export default function App() {
   return (
@@ -23,9 +21,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-const Home = () => (
-  <div>
-    <h1>Hello</h1>
-  </div>
-);
