@@ -1,20 +1,31 @@
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
+// router
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// components
+import Navbar from "./components/Navbar";
+import History from "./components/History";
+import InputPenyakit from "./components/InputPenyakit";
+import TestDNA from "./components/TestDNA";
+
+// styling
+import AppBar from "@mui/material";
 
 export default function App() {
   return (
-    <div>
-      <h1>Bookkeeper</h1>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Button variant="contained">
-          <Link to="/test-dna">Go to History</Link>
-        </Button>
-      </nav>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="history" element={<History />} />
+        <Route path="input-penyakit" element={<InputPenyakit />} />
+        <Route path="test-dna" element={<TestDNA />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+const Home = () => (
+  <div>
+    <h1>Hello</h1>
+  </div>
+);

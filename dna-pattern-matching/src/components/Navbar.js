@@ -7,8 +7,9 @@ const Navbar = () => {
     <AppBar position="static">
       <nav>
         <h3>Logo</h3>
+        <Link to="/test-dna">Test DNA</Link>
         <Link to="/history">History</Link>,{" | "}
-        <Link to="/input-penyakit">Input penyakit</Link>
+        <Link to="/input-penyakit">Input penyakit</Link>,{" | "}
       </nav>
     </AppBar>
   );
