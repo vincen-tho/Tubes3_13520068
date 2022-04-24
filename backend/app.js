@@ -21,7 +21,7 @@ connection.connect((err) => {
   });
 
 // riwayat penyakit GET
-app.get('/penyakit', (req,res)=>{
+app.get('/get-riwayat-penyakit', (req,res)=>{
     connection.query(
       'SELECT * FROM riwayatpenyakit',
       (error, results) => {
@@ -35,7 +35,7 @@ app.get('/penyakit', (req,res)=>{
 });
 
 // riwayat penyakit POST
-app.post("/penyakit", (req, res) => {
+app.post("/post-riwayat-penyakit", (req, res) => {
     console.log("hehe");
 });
 

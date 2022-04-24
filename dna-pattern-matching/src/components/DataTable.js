@@ -14,7 +14,7 @@ export default function DataTable() {
   async function fetchData() {
     try {
       const response = await axios.get(
-        `/penyakit`
+        `/get-riwayat-penyakit`
       );
       console.log(response);
 
