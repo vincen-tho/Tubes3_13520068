@@ -7,7 +7,8 @@ const connection = mysql.createConnection({
   user: 'JNiZdMjSO8',
   password:'DTdMmnpF0b',
   port : 3306,
-  database: 'JNiZdMjSO8'
+  database: 'JNiZdMjSO8',
+  dateStrings: true
 });
 
 connection.connect((err) => {
@@ -19,15 +20,24 @@ connection.connect((err) => {
     console.log('DBMS connected');
   });
 
-// coba-coba get
-// app.get('/', (req,res)=>{
-//     console.log("masuk gan");
-// });
+// riwayat penyakit GET
+app.get('/penyakit', (req,res)=>{
+    connection.query(
+      'SELECT * FROM riwayatpenyakit',
+      (error, results) => {
+        if (error)
+        {
+          throw error;
+        }
+        res.json(results)
+      }
+    );
+});
 
-// coba-coba post
-// app.post("/post", (req, res) => {
-//     console.log("Connected to React");
-//   });
+// riwayat penyakit POST
+app.post("/penyakit", (req, res) => {
+    console.log("hehe");
+});
 
 const PORT = 3000
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
