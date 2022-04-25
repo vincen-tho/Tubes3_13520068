@@ -62,7 +62,7 @@ app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
         var date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
         var similarity;
         var status;
-        if (KMPmatch && BMmatch)
+        if (KMPmatch != -1 && BMmatch != -1)
         {
             similarity = "100";
             status = "true";
