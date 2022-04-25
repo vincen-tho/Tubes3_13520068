@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const app = express();
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 
 const connection = mysql.createConnection({
   host: "remotemysql.com",
@@ -31,9 +33,9 @@ app.get("/get-riwayat-penyakit", (req, res) => {
 });
 
 // riwayat penyakit POST
-app.post("/post-riwayat-penyakit", (req, res) => {
+app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
   console.log("hehe");
-  res.send("hehe");
+  console.log(req.body)
 });
 
 const PORT = 3000;

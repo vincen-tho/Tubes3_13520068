@@ -36,16 +36,17 @@ const TestDNA = () => {
     setInputValue({ ...inputValue, [inputName]: inputValue });
   };
   const submit = (event) => {
-    const url = `http://localhost:3000/post-riwayat-penyakit`;
+    const url = `/post-riwayat-penyakit`;
     event.preventDefault();
     Axios.post(url, {
-      name: inputValue.nama,
-      file: files,
-      namaPenyakit: inputValue.namaPenyakit,
+      name: "inputValue.nama",
+      // file: files,
+      namaPenyakit: "inputValue.namaPenyakit",
     })
       .then(console.log("uploaded"))
       .catch((err) => console.log(err));
     console.log(files);
+    console.log(inputValue.namaPenyakit)
     clear();
     clearFile();
   };
