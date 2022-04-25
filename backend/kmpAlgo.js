@@ -24,8 +24,6 @@ function computeFail(pattern) {
   return fail;
 }
 
-console.log(computeFail("ababababca"));
-
 // Fungsi KMP
 // return index where pattern start or -1 if not found
 function kmpMatch(text, pattern) {
@@ -53,3 +51,5 @@ function kmpMatch(text, pattern) {
   }
   return -1;
 }
+
+module.exports = {computeFail, kmpMatch};

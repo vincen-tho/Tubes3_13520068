@@ -47,7 +47,10 @@ function bmMatch(text, pattern)
     while (i <= n-1);
     return -1; // no match
 } // end of bmMatch()
-let text = 'AGCTGCACCTGTGTAACCTGGTAACGTGC';
-let pattern = 'ACCTGTGTAACCTGGT';
-console.log(bmMatch(text, pattern))
+
+module.exports = {buildLast, bmMatch};
+
+// let text = 'AGCTGCACCTGTGTAACCTGGTAACGTGC';
+// let pattern = 'ACCTGTGTAACCTGGT';
+// console.log(bmMatch(text, pattern))
     

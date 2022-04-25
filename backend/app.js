@@ -1,5 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
+const KMP = require('./kmpAlgo.js');
+const BM = require('./bmAlgo.js');
 const app = express();
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
@@ -38,8 +40,58 @@ app.get("/get-riwayat-penyakit", (req, res) => {
 // riwayat penyakit POST
 app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
   //name, sequence, namaPenyakit
-  console.log("hehe");
-  console.log(req.body);
+  var namaPengguna = req.body.name;
+  var sequencePengguna = req.body.sequence;
+  var namaPenyakit= req.body.namaPenyakit;
+  var sequencePenyakit;
+  var valid;
+  connection.query("SELECT sequence FROM penyakit WHERE nama = ?", [namaPenyakit], (error, results) => {
+    if (error) 
+    {
+      res.status(400).send("Error 400 Bad Request (disease not found)")
+    }
+    else
+    {
+      sequencePenyakit = results[0].sequence;
+      valid = DNAregex.test(sequencePengguna);
+      if (valid)
+      {
+        var KMPmatch = KMP.kmpMatch(sequencePengguna, sequencePenyakit);
+        var BMmatch = BM.bmMatch(sequencePengguna, sequencePenyakit);
+        var today = new Date()
+        var date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
+        var similarity;
+        var status;
+        if (KMPmatch && BMmatch)
+        {
+            similarity = "100";
+            status = "true";
+        }
+        else
+        {
+            similarity = "0";
+            status = "false";
+        }
+        var result = {"tanggal" : date, "nama" : namaPengguna, "penyakit" : namaPenyakit, "similarity" : similarity, "status" : status};
+        connection.query("INSERT INTO riwayatpenyakit (tanggal, pengguna, penyakit, similarity, status) VALUES (?,?,?,?,?)", [date, namaPengguna, namaPenyakit, parseInt(similarity), status], (error, results) => {
+          if (error) 
+          {
+            res.sendStatus(400);
+          }
+          else
+          {
+            console.log("New riwayat penyakit added");
+            res.json(result);
+          }
+        });
+      }
+      else
+      {
+        res.status(400).send("Error 400 Bad Request (invalid sequence)");
+      }
+    }
+  });
+
 });
 
 // input penyakit POST
