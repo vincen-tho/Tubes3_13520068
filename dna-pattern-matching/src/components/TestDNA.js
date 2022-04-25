@@ -32,17 +32,19 @@ const TestDNA = () => {
   const handleChange = (event) => {
     let inputValue = event.target.value;
     let inputName = event.target.name;
-    if (event.target.name == "sequence") uploadHandler(event);
+    if (event.target.name === "sequence") uploadHandler(event);
     setInputValue({ ...inputValue, [inputName]: inputValue });
   };
   const submit = (event) => {
-    const url = "https://jsonplaceholder.typicode.com/posts";
+    const url = `http://localhost:3000/post-riwayat-penyakit`;
     event.preventDefault();
     Axios.post(url, {
       name: inputValue.nama,
       file: files,
       namaPenyakit: inputValue.namaPenyakit,
-    }).catch((err) => console.log(err));
+    })
+      .then(console.log("uploaded"))
+      .catch((err) => console.log(err));
     console.log(files);
     clear();
     clearFile();

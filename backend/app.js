@@ -33,6 +33,7 @@ app.get("/get-riwayat-penyakit", (req, res) => {
 // riwayat penyakit POST
 app.post("/post-riwayat-penyakit", (req, res) => {
   console.log("hehe");
+  res.send("hehe");
 });
 
 const PORT = 3000;
