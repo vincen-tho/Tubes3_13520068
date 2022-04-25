@@ -1,7 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
 const app = express();
-var bodyParser = require('body-parser');
+var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 
 const connection = mysql.createConnection({
@@ -35,7 +35,13 @@ app.get("/get-riwayat-penyakit", (req, res) => {
 // riwayat penyakit POST
 app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
   console.log("hehe");
-  console.log(req.body)
+  console.log(req.body);
+});
+
+// input penyakit POST
+app.post("/post-input-penyakit", jsonParser, (req, res) => {
+  console.log("hehe");
+  console.log(req.body);
 });
 
 const PORT = 3000;

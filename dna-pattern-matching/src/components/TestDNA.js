@@ -9,46 +9,49 @@ const TestDNA = () => {
     sequence: "",
     namaPenyakit: "",
   });
-  const [files, setFiles] = useState();
+  const [currentFile, setFiles] = useState({
+    contents: "",
+  });
   const clear = () => {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
     );
     setInputValue({
-      inputValue: [{}],
+      nama: "",
+      sequence: "",
+      namaPenyakit: "",
     });
   };
-  const clearFile = () => {
-    setFiles(null);
-  };
   const uploadHandler = (event) => {
-    clearFile();
     const file = event.target.files[0];
-    setFiles(file);
-    const formData = new FormData();
-    formData.append(inputValue.sequence, file, inputValue.sequence);
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      setFiles({ ...currentFile, ["contents"]: reader.result });
+    };
+    reader.onerror = () => {
+      console.log("error");
+    };
   };
 
   const handleChange = (event) => {
-    let inputValue = event.target.value;
-    let inputName = event.target.name;
+    let newInputValue = event.target.value;
+    let newInputName = event.target.name;
     if (event.target.name === "sequence") uploadHandler(event);
-    setInputValue({ ...inputValue, [inputName]: inputValue });
+    setInputValue({ ...inputValue, [newInputName]: newInputValue });
   };
   const submit = (event) => {
     const url = `/post-riwayat-penyakit`;
     event.preventDefault();
+
     Axios.post(url, {
-      name: "inputValue.nama",
-      // file: files,
-      namaPenyakit: "inputValue.namaPenyakit",
+      name: inputValue.nama,
+      sequence: currentFile.contents,
+      namaPenyakit: inputValue.namaPenyakit,
     })
       .then(console.log("uploaded"))
       .catch((err) => console.log(err));
-    console.log(files);
-    console.log(inputValue.namaPenyakit)
     clear();
-    clearFile();
   };
 
   return (
