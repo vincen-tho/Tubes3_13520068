@@ -14,18 +14,18 @@ export default function DataTable() {
   async function fetchData() {
     try {
       const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/`
+        `/get-riwayat-penyakit`
       );
       console.log(response);
 
       setTableData(
         response.data.map((item) => {
           return {
-            tanggal: item.id,
-            pengguna: item.userId,
-            penyakit: item.title,
-            similarity: item.title,
-            status: item.title,
+            tanggal: item.tanggal,
+            pengguna: item.pengguna,
+            penyakit: item.penyakit,
+            similarity: item.similarity,
+            status: item.status,
           };
         })
       );
