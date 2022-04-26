@@ -46,7 +46,7 @@ app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
   var sequencePenyakit;
   var valid;
   connection.query("SELECT sequence FROM penyakit WHERE nama = ?", [namaPenyakit], (error, results) => {
-    if (error) 
+    if (error || (results[0] === undefined)) 
     {
       res.status(400).send("Error 400 Bad Request (disease not found)")
     }
@@ -76,6 +76,7 @@ app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
         connection.query("INSERT INTO riwayatpenyakit (tanggal, pengguna, penyakit, similarity, status) VALUES (?,?,?,?,?)", [date, namaPengguna, namaPenyakit, parseInt(similarity), status], (error, results) => {
           if (error) 
           {
+            console.log("Error adding new riwayat penyakit");
             res.sendStatus(400);
           }
           else
