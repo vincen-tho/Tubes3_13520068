@@ -46,9 +46,20 @@ app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
   var sequencePenyakit;
   var valid;
   connection.query("SELECT sequence FROM penyakit WHERE nama = ?", [namaPenyakit], (error, results) => {
-    if (error || (results[0] === undefined)) 
+    if (error)
     {
-      res.status(400).send("Error 400 Bad Request (disease not found)")
+      console.log("query error");
+      res.status(400).send("Error 400 Bad Request (query error)");
+    }
+    else if (results[0] === undefined)
+    {
+      console.log("disease not found");
+      res.status(400).send("Error 400 Bad Request (disease not found)");
+    }
+    else if (namaPengguna === '') 
+    {
+      console.log("User name cannot be empty");
+      res.status(400).send("Error 400 Bad Request (name input empty)");
     }
     else
     {
