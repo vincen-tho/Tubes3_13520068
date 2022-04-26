@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { TextField, DialogContent, Button } from "@mui/material";
 import TableComponent from "./TableComponent";
 import Axios from "axios";
 
@@ -76,22 +75,22 @@ const TestDNA = () => {
 
   return (
     <div>
-      <div className=" w-3/5 border border-indigo-600 rounded-lg mx-auto mt-16 p-6 ">
+      <div className=" w-3/5 border border-gray-600 rounded-lg mx-auto mt-16 p-6 ">
         <p className="text-2xl font-bold text-center py-4">Tes DNA</p>
         <form onSubmit={onSubmit}>
           <div className="md:columns-3 py-6">
-            <div>
-              <label>Nama Pengguna</label>
+            <div className="pt-2">
               <TextField
                 name="nama"
                 type="text"
+                label="Nama"
                 value={inputValue.nama}
                 onChange={handleChange}
                 size="small"
+                required
               />
             </div>
-            <div>
-              <label>Sequence DNA</label>
+            <div className="pt-2">
               <TextField
                 name="sequence"
                 type="file"
@@ -99,22 +98,26 @@ const TestDNA = () => {
                 onChange={handleChange}
                 variant="outlined"
                 size="small"
+                label="Sequence DNA"
+                InputLabelProps={{ shrink: true }}
+                required
               />
             </div>
-            <div>
-              <label>Nama Penyakit</label>
+            <div className="pt-2">
               <TextField
                 name="namaPenyakit"
                 type="text"
+                label="Nama Penyakit"
                 value={inputValue.namaPenyakit}
                 onChange={handleChange}
                 size="small"
+                required
               />
             </div>
           </div>
           <div className="text-center pt-6">
-            <Button variant="contained">
-              <input type="submit" value="Submit" />
+            <Button variant="contained" type="submit" value="Submit">
+              Submit
             </Button>
           </div>
         </form>
