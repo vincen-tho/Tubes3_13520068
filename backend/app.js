@@ -112,10 +112,11 @@ app.post("/post-input-penyakit", jsonParser, (req, res) => {
   // namaPenyakit, sequence
   var namaPenyakit = req.body.namaPenyakit;
   var sequence = req.body.sequence;
-  // console.log(namaPenyakit)
-  // console.log(sequence)
   var valid = DNAregex.test(sequence);
-  if (valid) {
+  if (valid) 
+  {
+    if (namaPenyakit !== '')
+    {
     connection.query(
       "INSERT INTO penyakit (nama, sequence) VALUES (?,?)",
       [namaPenyakit, sequence],
@@ -129,8 +130,17 @@ app.post("/post-input-penyakit", jsonParser, (req, res) => {
           res.sendStatus(200);
         }
       }
-    );
-  } else {
+      );
+    }
+    else
+    {
+      console.log("Disease name cannot be empty");
+      res.status(400).send("Error 400 Bad Request (Input name cannot be empty)");
+    }
+  } 
+  else 
+  {
+    console.log("Invalid Sequence");
     res.status(400).send("Error 400 Bad Request (Invalid Sequence)");
   }
 });
