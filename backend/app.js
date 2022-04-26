@@ -122,6 +122,7 @@ app.post("/post-input-penyakit", jsonParser, (req, res) => {
       [namaPenyakit, sequence],
       (error, results) => {
         if (error) {
+          console.log("Disease name already exists")
           res
             .status(400)
             .send("Error 400 Bad Request (Disease name already exists)");
