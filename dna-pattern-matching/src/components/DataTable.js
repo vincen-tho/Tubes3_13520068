@@ -13,9 +13,7 @@ export default function DataTable() {
 
   async function fetchData() {
     try {
-      const response = await axios.get(
-        `/get-riwayat-penyakit`
-      );
+      const response = await axios.get(`/get-riwayat-penyakit`);
       console.log(response);
 
       setTableData(
@@ -30,7 +28,7 @@ export default function DataTable() {
         })
       );
     } catch (error) {
-      alert(error);
+      alert(error); // todo ubah jadi sesuatu yang lebi bagus
     }
   }
 

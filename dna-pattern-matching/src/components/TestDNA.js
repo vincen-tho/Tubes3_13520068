@@ -48,9 +48,7 @@ const TestDNA = () => {
       name: inputValue.nama,
       sequence: currentFile.contents,
       namaPenyakit: inputValue.namaPenyakit,
-    })
-      .then(console.log("uploaded"))
-      .catch((err) => console.log(err));
+    }).catch((err) => alert(err.response.data)); // TODO: ubah jadi sesuatu yg lebi bagus
     clear();
   };
 
