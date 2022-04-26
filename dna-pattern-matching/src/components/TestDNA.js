@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import { TextField } from "@mui/material";
+import TableComponent from "./TableComponent";
 import Axios from "axios";
 
 const TestDNA = () => {
@@ -9,9 +10,13 @@ const TestDNA = () => {
     sequence: "",
     namaPenyakit: "",
   });
+
   const [currentFile, setFiles] = useState({
     contents: "",
   });
+
+  const [resultData, setResultData] = useState([]);
+
   const clear = () => {
     Array.from(document.querySelectorAll("input")).forEach(
       (input) => (input.value = "")
@@ -22,6 +27,7 @@ const TestDNA = () => {
       namaPenyakit: "",
     });
   };
+
   const uploadHandler = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -40,15 +46,31 @@ const TestDNA = () => {
     if (event.target.name === "sequence") uploadHandler(event);
     setInputValue({ ...inputValue, [newInputName]: newInputValue });
   };
-  const submit = (event) => {
+
+  const onSubmit = (event) => {
     const url = `/post-riwayat-penyakit`;
     event.preventDefault();
 
-    Axios.post(url, {
+    const body = {
       name: inputValue.nama,
       sequence: currentFile.contents,
       namaPenyakit: inputValue.namaPenyakit,
-    }).catch((err) => alert(err.response.data)); // TODO: ubah jadi sesuatu yg lebi bagus
+    };
+
+    Axios.post(url, body).then((response) => {
+      setResultData(
+        [response.data].map((item) => {
+          return {
+            tanggal: item.tanggal,
+            pengguna: item.pengguna,
+            penyakit: item.penyakit,
+            similarity: item.similarity,
+            status: item.status,
+          };
+        })
+      ).catch((err) => alert(err.response.data));
+    });
+
     clear();
   };
 
@@ -56,7 +78,7 @@ const TestDNA = () => {
     <div>
       <div className=" w-3/5 border border-indigo-600 rounded-lg mx-auto mt-16 p-6 ">
         <p className="text-2xl font-bold text-center py-4">Tes DNA</p>
-        <form onSubmit={submit}>
+        <form onSubmit={onSubmit}>
           <div className="md:columns-3 py-6">
             <div>
               <label>Nama Pengguna</label>
@@ -96,6 +118,15 @@ const TestDNA = () => {
             </Button>
           </div>
         </form>
+        {resultData.length > 0 ? (
+          <div className="py-6">
+            <hr></hr>
+            <p className="text-2xl font-bold text-center py-4">Hasil</p>
+            <TableComponent tableData={resultData} />
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );

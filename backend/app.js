@@ -81,7 +81,7 @@ app.post("/post-riwayat-penyakit", jsonParser, (req, res) => {
           }
           var result = {
             tanggal: date,
-            nama: namaPengguna,
+            pengguna: namaPengguna,
             penyakit: namaPenyakit,
             similarity: similarity,
             status: status,
@@ -113,34 +113,30 @@ app.post("/post-input-penyakit", jsonParser, (req, res) => {
   var namaPenyakit = req.body.namaPenyakit;
   var sequence = req.body.sequence;
   var valid = DNAregex.test(sequence);
-  if (valid) 
-  {
-    if (namaPenyakit !== '')
-    {
-    connection.query(
-      "INSERT INTO penyakit (nama, sequence) VALUES (?,?)",
-      [namaPenyakit, sequence],
-      (error, results) => {
-        if (error) {
-          console.log("Disease name already exists")
-          res
-            .status(400)
-            .send("Error 400 Bad Request (Disease name already exists)");
-        } else {
-          console.log("New Disease DNA Sequence Added");
-          res.sendStatus(200);
+  if (valid) {
+    if (namaPenyakit !== "") {
+      connection.query(
+        "INSERT INTO penyakit (nama, sequence) VALUES (?,?)",
+        [namaPenyakit, sequence],
+        (error, results) => {
+          if (error) {
+            console.log("Disease name already exists");
+            res
+              .status(400)
+              .send("Error 400 Bad Request (Disease name already exists)");
+          } else {
+            console.log("New Disease DNA Sequence Added");
+            res.sendStatus(200);
+          }
         }
-      }
       );
-    }
-    else
-    {
+    } else {
       console.log("Disease name cannot be empty");
-      res.status(400).send("Error 400 Bad Request (Input name cannot be empty)");
+      res
+        .status(400)
+        .send("Error 400 Bad Request (Input name cannot be empty)");
     }
-  } 
-  else 
-  {
+  } else {
     console.log("Invalid Sequence");
     res.status(400).send("Error 400 Bad Request (Invalid Sequence)");
   }

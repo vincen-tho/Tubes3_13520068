@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,37 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import axios from "axios";
 
-export default function DataTable() {
-  const [tableData, setTableData] = useState([]);
+export default function DataTable(props) {
 
-  async function fetchData() {
-    try {
-      const response = await axios.get(`/get-riwayat-penyakit`);
-      console.log(response);
-
-      setTableData(
-        response.data.map((item) => {
-          return {
-            tanggal: item.tanggal,
-            pengguna: item.pengguna,
-            penyakit: item.penyakit,
-            similarity: item.similarity,
-            status: item.status,
-          };
-        })
-      );
-    } catch (error) {
-      alert(error); // todo ubah jadi sesuatu yang lebi bagus
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const rows = tableData;
+  const rows = props.tableData;
 
   return (
     <TableContainer component={Paper}>
