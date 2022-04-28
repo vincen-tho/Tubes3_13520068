@@ -6,7 +6,14 @@ const app = express();
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
 const DNAregex = /^[CAGT]+$/;
+const DATEregex =/^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
 
 const connection = mysql.createConnection({
   host: "remotemysql.com",
@@ -27,13 +34,36 @@ connection.connect((err) => {
 });
 
 // riwayat penyakit GET
-app.get("/get-riwayat-penyakit", (req, res) => {
+app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
+  var input = req.query.searchTerm.split(" ")
+  console.log(req.query.searchTerm);
+  console.log(DATEregex.test(req.query.searchTerm));
+  console.log(input)
+  if (req.query.searchTerm !== "")
+  {
+    if (input.length == 1)
+    {
+      // connection.query("SELECT * FROM riwayatpenyakit WHERE tanggal = (?)", [input[0]],(error, results) => {
+      //   if (error) {
+      //     throw error;
+      //   }
+      //   res.json(results);
+      // });
+    }
+    else
+    {
+
+    }
+  }
+  else
+  {
   connection.query("SELECT * FROM riwayatpenyakit", (error, results) => {
     if (error) {
       throw error;
     }
     res.json(results);
   });
+  }
 });
 
 // riwayat penyakit POST

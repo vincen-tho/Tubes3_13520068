@@ -67,7 +67,7 @@ const TestDNA = () => {
             status: item.status,
           };
         })
-      ).catch((err) => alert(err.response.data));
+      ).catch((err) => console.log(err.response.data));
     });
 
     clear();

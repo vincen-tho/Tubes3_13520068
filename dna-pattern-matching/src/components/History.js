@@ -24,7 +24,7 @@ const History = () => {
         })
       );
     } catch (error) {
-      alert(error); // todo ubah jadi sesuatu yang lebi bagus
+      console.log(error); // todo ubah jadi sesuatu yang lebi bagus
     }
   }
 
