@@ -38,12 +38,10 @@ connection.connect((err) => {
 // riwayat penyakit GET
 app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
   const [first, ...rest] = req.query.searchTerm.split(" ");
-  // console.log([first, ...rest]);
   if (req.query.searchTerm !== "") {
     if (!DATEregex.test(first)) 
     {
       // penyakit
-      console.log("penyakit");
       connection.query(
         "SELECT * FROM riwayatpenyakit WHERE penyakit = (?)",
         [first + rest.join(" ")],
@@ -52,7 +50,6 @@ app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
             throw error;
           }
           res.json(results);
-          console.log(results);
         }
       );
     } else {
@@ -66,8 +63,6 @@ app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
             if (error) {
               throw error;
             }
-            console.log("tanggal dan penyakit");
-            console.log(results);
             res.json(results);
           }
         );
@@ -82,8 +77,6 @@ app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
             if (error) {
               throw error;
             }
-            console.log("tanggal");
-            console.log(results);
             res.json(results);
           }
         );
