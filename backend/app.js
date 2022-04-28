@@ -38,9 +38,11 @@ connection.connect((err) => {
 // riwayat penyakit GET
 app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
   const [first, ...rest] = req.query.searchTerm.split(" ");
-  console.log([first, ...rest]);
+  // console.log([first, ...rest]);
   if (req.query.searchTerm !== "") {
-    if (!DATEregex.test(first)) {
+    if (!DATEregex.test(first)) 
+    {
+      // penyakit
       console.log("penyakit");
       connection.query(
         "SELECT * FROM riwayatpenyakit WHERE penyakit = (?)",
@@ -50,21 +52,45 @@ app.get("/get-riwayat-penyakit", jsonParser, (req, res) => {
             throw error;
           }
           res.json(results);
+          console.log(results);
         }
       );
     } else {
-      connection.query(
-        "SELECT * FROM riwayatpenyakit WHERE tanggal = (?) OR penyakit = (?)",
-        [first, rest.join(" ")],
-        (error, results) => {
-          if (error) {
-            throw error;
+      if (rest.length !== 0)
+      {
+        // penyakit dan tanggal
+        connection.query(
+          "SELECT * FROM riwayatpenyakit WHERE tanggal = (?) AND penyakit = (?)",
+          [first, rest.join(" ")],
+          (error, results) => {
+            if (error) {
+              throw error;
+            }
+            console.log("tanggal dan penyakit");
+            console.log(results);
+            res.json(results);
           }
-          res.json(results);
-        }
-      );
+        );
+      }
+      else
+      {
+        //tanggal
+        connection.query(
+          "SELECT * FROM riwayatpenyakit WHERE tanggal = (?)",
+          [first],
+          (error, results) => {
+            if (error) {
+              throw error;
+            }
+            console.log("tanggal");
+            console.log(results);
+            res.json(results);
+          }
+        );
+      }
     }
-  } else {
+  } 
+  else {
     connection.query("SELECT * FROM riwayatpenyakit", (error, results) => {
       if (error) {
         throw error;
