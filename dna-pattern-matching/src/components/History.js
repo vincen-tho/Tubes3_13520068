@@ -7,34 +7,36 @@ const History = () => {
   const [tableData, setTableData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  async function fetchData() {
-    try {
-      const response = await axios.get(`/get-riwayat-penyakit`, {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    getData();
+  };
+  const getData = () => {
+    axios
+      .get(`/get-riwayat-penyakit`, {
         params: { searchTerm: searchTerm },
-      });
-      setTableData(
-        response.data.map((item) => {
-          return {
-            tanggal: item.tanggal,
-            pengguna: item.pengguna,
-            penyakit: item.penyakit,
-            similarity: item.similarity,
-            status: item.status,
-          };
-        })
-      );
-    } catch (error) {
-      console.log(error); // todo ubah jadi sesuatu yang lebi bagus
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, [searchTerm]);
+      })
+      .then((response) => {
+        setTableData(
+          response.data.map((item) => {
+            return {
+              tanggal: item.tanggal,
+              pengguna: item.pengguna,
+              penyakit: item.penyakit,
+              similarity: item.similarity,
+              status: item.status,
+            };
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className=" w-3/5 border border-gray-600 rounded-lg mx-auto mt-16 p-6 ">
-      <SearchBar setSearchTerm={setSearchTerm} />
+      <form onSubmit={handleSubmit}>
+        <SearchBar setSearchTerm={setSearchTerm} />
+      </form>
       <p className="text-2xl font-bold text-center py-4">Hasil Tes</p>
       <TableComponent tableData={tableData} />
     </div>
