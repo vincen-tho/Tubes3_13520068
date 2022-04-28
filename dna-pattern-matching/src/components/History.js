@@ -9,6 +9,7 @@ const History = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setTableData([]);
     getData();
   };
   const getData = () => {
