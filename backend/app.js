@@ -171,23 +171,58 @@ app.post("/post-input-penyakit", jsonParser, (req, res) => {
   var sequence = req.body.sequence;
   var valid = DNAregex.test(sequence);
   if (valid) {
-    if (namaPenyakit !== "") {
+    if (namaPenyakit !== "") 
+    {
       connection.query(
-        "INSERT INTO penyakit (nama, sequence) VALUES (?,?)",
-        [namaPenyakit, sequence],
+        "SELECT sequence FROM penyakit",
         (error, results) => {
-          if (error) {
-            console.log("Disease name already exists");
+          if (error) 
+          {
             res
               .status(400)
-              .send("Error 400 Bad Request (Disease name already exists)");
-          } else {
-            console.log("New Disease DNA Sequence Added");
-            res.sendStatus(200);
+              .send("Error 400 Bad Request (query error)");
+          } 
+          else 
+          {
+            var found = false;
+            for (var i = 0 ; i < results.length ;i++)
+            {
+              if (sequence === results[i].sequence)
+              {
+                found = true;
+              }
+            }
+            if (found)
+            {
+              console.log("sequence already exists")
+              res.status(400).send("Error 400 Bad Request (sequence already exists)");
+            }
+            else
+            {
+              connection.query(
+                "INSERT INTO penyakit (nama, sequence) VALUES (?,?)",
+                [namaPenyakit, sequence],
+                (error, results) => {
+                  if (error) {
+                    console.log("Disease name already exists");
+                    res
+                      .status(400)
+                      .send("Error 400 Bad Request (Disease name already exists)");
+                  } else {
+                    console.log("New Disease DNA Sequence Added");
+                    res.sendStatus(200);
+                  }
+                }
+              );
+            }
           }
         }
       );
-    } else {
+      
+
+
+    } 
+    else {
       console.log("Disease name cannot be empty");
       res
         .status(400)
