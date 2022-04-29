@@ -46,7 +46,7 @@ const InputPenyakit = () => {
       sequence: currentFile.contents,
     })
       .then(console.log("uploaded"))
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.response.data));
     clear();
   };
 
