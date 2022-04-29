@@ -10,7 +10,7 @@
 <br>
 
 # Requirements
-1. Node package manage
+1. Node package manager
 
 <br>
 
